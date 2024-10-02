@@ -33,7 +33,8 @@ namespace ASPBookProject.Controllers
         // GET: PatientController
         public ActionResult Index()
         {
-                var patients = _context.Patients.ToList();
+                List<Patient> patients = new List<Patient>();
+                patients = _context.Patients.ToList();
                 return View(patients);
         }
 

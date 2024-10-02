@@ -1,4 +1,8 @@
 ﻿// Vue (Edit.cshtml)
+
+@{ 
+ViewBag.title="edit"; 
+}
 @model PatientEditViewModel
 
 <h2>Éditer Patient</h2>
@@ -62,9 +66,3 @@
 <div>
     <a asp-action="Index">Retour à la liste</a>
 </div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
