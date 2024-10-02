@@ -1,8 +1,12 @@
 // set up the basic features of the ASP.NET Core platform
 
+using System;
 using ASPBookProject.Data;
 using ASPBookProject.Services.FakeDataService;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,7 +59,7 @@ app.UseRouting();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Instructor}/{action=index}/{id?}"
+    pattern: "{controller=Patient}/{action=Index}/{id?}"
 );
 
 app.Run();

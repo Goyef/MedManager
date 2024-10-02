@@ -1,5 +1,107 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    @* Layout = null; *@
+ 
 }
+ 
+@model IEnumerable<Patient>
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+   
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Bonjour Antho</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+              </li>
+            </ul>
+            <!-- Sa c'est le toogle -->
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()">
+              <label class="form-check-label" for="darkModeToggle">Mode sombre</label>
+            </div>
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>  
+      <h1>Liste des Patients</h1>
+    @if (Model.Count() > 0)
+    {
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th>Nom de famille</th>
+                    <th>Prénom</th>
+                    <th>Sexe_p</th>
+                    <th>Num_secu</th>
+                    <th>Details (Html Helper)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var Patient in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => Patient.Nom_p)</td>
+                        <td>@Html.DisplayFor(m => Patient.Prenom_p)</td>
+                        <td>@Html.DisplayFor(m => Patient.Sexe_p)</td>
+                        <td>@Html.DisplayFor(m => Patient.Num_secu)</td>
+ 
+                        @* <TD>@Html.ActionLink("details", "ShowDetails", new { id = @Patient.PatientId })</TD> *@
+                        <TD><a asp-action="Edit" asp-route-id="@Patient.PatientId"> details</a> </TD>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Il n'y a pas de patient</p>
+    }
+    <script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute("data-bs-theme");
+ 
+            if (currentTheme === "dark") {
+                html.setAttribute("data-bs-theme", "light");
+            } else {
+                html.setAttribute("data-bs-theme", "dark");
+            }
+        }
+    </script>
+</body>
+ 
+</html>
+ 

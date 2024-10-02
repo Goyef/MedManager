@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using ASPBookProject.Data;
 using ASPBookProject.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +33,8 @@ namespace ASPBookProject.Controllers
         // GET: PatientController
         public ActionResult Index()
         {
-            return View();
+                var patients = _context.Patients.ToList();
+                return View(patients);
         }
 
         // Edit: PatientController 
