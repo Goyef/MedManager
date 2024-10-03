@@ -3,7 +3,12 @@
 }
  
 @model IEnumerable<Patient>
-      <h1>Liste des Patients</h1>
+    <style>
+        .text-center, mb-6{
+            padding-bottom: 2em;
+        }
+    </style>
+      <h1 class="text-center mb-6">Liste des Patients</h1>
     @if (Model.Count() > 0)
     {
       <div class="container text-center">
@@ -29,7 +34,7 @@
                         <td>@Html.DisplayFor(m => Patient.Num_secu)</td>
  
                         @* <TD>@Html.ActionLink("details", "ShowDetails", new { id = @Patient.PatientId })</TD> *@
-                        <TD><a asp-action="Edit" asp-route-id="@Patient.PatientId"> details</a> </TD>
+                        <TD><a asp-action="Edit" asp-route-id="@Patient.PatientId" id="accueil"> edit</a> </TD>
                     </tr>
                 }
             </tbody>

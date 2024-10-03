@@ -9,7 +9,7 @@
   <ItemGroup>
     <Folder Include="ViewModels/" />
     <Folder Include="Views/Student/" />
-    <Folder Include="wwwroot/" />
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
   <ItemGroup>
