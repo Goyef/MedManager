@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ASPBookProject.Data;
 using ASPBookProject.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ public class PatientEditViewModel
 
 namespace ASPBookProject.Controllers
 {
+    [Authorize]
     public class PatientController : Controller
     {
         // 
@@ -30,12 +32,14 @@ namespace ASPBookProject.Controllers
             _context = context;
         }
 
+
+        [Authorize]
         // GET: PatientController
         public ActionResult Index()
         {
-                List<Patient> patients = new List<Patient>();
-                patients = _context.Patients.ToList();
-                return View(patients);
+            List<Patient> patients = new List<Patient>();
+            patients = _context.Patients.ToList();
+            return View(patients);
         }
 
         // Edit: PatientController 
@@ -63,6 +67,7 @@ namespace ASPBookProject.Controllers
             return View(viewModel);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, PatientEditViewModel viewModel)
@@ -71,7 +76,13 @@ namespace ASPBookProject.Controllers
             {
                 return NotFound();
             }
-
+            if (!ModelState.IsValid)
+{
+ 
+    viewModel.Antecedents = await _context.Antecedents.ToListAsync();
+    viewModel.Allergies = await _context.Allergies.ToListAsync();
+    return View(viewModel);
+}
             if (ModelState.IsValid)
             {
                 try
@@ -80,6 +91,7 @@ namespace ASPBookProject.Controllers
                         .Include(p => p.Antecedents)
                         .Include(p => p.Allergies)
                         .FirstOrDefaultAsync(p => p.PatientId == id);
+
 
                     if (patient == null)
                     {
@@ -121,8 +133,10 @@ namespace ASPBookProject.Controllers
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException ex)
                 {
+                    ThrowException();
+                    Console.WriteLine(ex.Message);
                     if (!PatientExists(viewModel.Patient.PatientId))
                     {
                         return NotFound();
@@ -135,6 +149,7 @@ namespace ASPBookProject.Controllers
             }
 
             // Si nous arrivons ici, quelque chose a échoué, réafficher le formulaire
+            ThrowException();
             viewModel.Antecedents = await _context.Antecedents.ToListAsync();
             viewModel.Allergies = await _context.Allergies.ToListAsync();
             return View(viewModel);
@@ -146,6 +161,11 @@ namespace ASPBookProject.Controllers
         }
 
 
+        [HttpPost]
+        public IActionResult ThrowException()
+        {
+            throw new Exception("Une exception s'est produite, nous testons la page d'exception pour les développeurs.");
+        }
 
     }
 }

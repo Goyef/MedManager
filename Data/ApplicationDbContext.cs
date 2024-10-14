@@ -1,10 +1,11 @@
 using System;
 using ASPBookProject.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ASPBookProject.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext<Medecin>
 {
     // Nous allons creer un dbset pour chaque table de notre base de donnees
     // Dbset est une classe generique qui represente une table dans la base de donnees
@@ -13,7 +14,6 @@ public class ApplicationDbContext : DbContext
     public DbSet<Instructor> Instructors { get; set; }
 
     public DbSet<Patient> Patients => Set<Patient>();
-    public DbSet<Medecin> Medecins => Set<Medecin>();
     public DbSet<Allergie> Allergies => Set<Allergie>();
     public DbSet<Ordonnance> Ordonnances => Set<Ordonnance>();
     public DbSet<Medicament> Medicaments => Set<Medicament>();
@@ -29,28 +29,42 @@ public class ApplicationDbContext : DbContext
     // Ajout de mock data
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
         modelBuilder.Entity<Patient>()
-          .HasMany(p => p.Allergies)
-          .WithMany(a => a.Patients)
-          .UsingEntity(j => j.ToTable("AllergiePatient")); ;
+             .HasMany(p => p.Allergies)
+             .WithMany(a => a.Patients)
+              .UsingEntity(j => j.ToTable("AllergiePatient")); ;
 
         modelBuilder.Entity<Patient>()
             .HasMany(p => p.Antecedents)
             .WithMany(a => a.Patients)
             .UsingEntity(j => j.ToTable("AntecedentPatient")); ;
 
-        modelBuilder.Entity<Allergie>()
-            .HasMany(a => a.Medicaments)
-            .WithMany(m => m.Allergies);
+        modelBuilder.Entity<Medicament>()
+         .HasMany(m => m.Antecedents)
+         .WithMany(a => a.Medicaments)
+         .UsingEntity(j => j.ToTable("AntecedentMedicament"));
 
-        modelBuilder.Entity<Antecedent>()
-            .HasMany(a => a.Medicaments)
-            .WithMany(m => m.Antecedents);
+        modelBuilder.Entity<Medicament>()
+            .HasMany(m => m.Allergies)
+            .WithMany(a => a.Medicaments)
+            .UsingEntity(j => j.ToTable("AllergieMedicament"));
+
+        modelBuilder.Entity<Ordonnance>()
+            .HasMany(o => o.Medicaments)
+            .WithMany(m => m.Ordonnances)
+            .UsingEntity(j => j.ToTable("MedicamentOrdonnance"));
+
 
         modelBuilder.Entity<Ordonnance>()
             .HasOne(o => o.Patient)
-            .WithOne(p => p.Ordonnance)
-            .HasForeignKey<Ordonnance>(o => o.PatientId);
+            .WithMany(p => p.Ordonnances)
+            .HasForeignKey(o => o.PatientId);
+
+        modelBuilder.Entity<Ordonnance>()
+        .HasOne(o => o.Medecin)
+        .WithMany(m => m.Ordonnances)
+        .HasForeignKey(o => o.MedecinId);
 
         base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Student>().HasData(
@@ -94,15 +108,15 @@ public class ApplicationDbContext : DbContext
             }
 
             );
-             modelBuilder.Entity<Patient>().HasData(
-            new Patient()
-            {
-                PatientId = 1,
-                Nom_p = "John",
-                Prenom_p= "Doe",
-                Num_secu = "1231",
-                Sexe_p = "ed",
-            });
+        modelBuilder.Entity<Patient>().HasData(
+       new Patient()
+       {
+           PatientId = 1,
+           Nom_p = "John",
+           Prenom_p = "Doe",
+           Num_secu = "1231",
+           Sexe_p = "ed",
+       });
     }
 
 

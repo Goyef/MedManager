@@ -35,6 +35,12 @@
  
                         @* <TD>@Html.ActionLink("details", "ShowDetails", new { id = @Patient.PatientId })</TD> *@
                         <TD><a asp-action="Edit" asp-route-id="@Patient.PatientId" id="accueil"> edit</a> </TD>
+                          <div class="container">
+        <h1>Test Exception</h1>
+        <form asp-action="ThrowException" method="post">
+            <button type="submit" class="btn btn-danger">Lancer une exception</button>
+        </form>
+    </div>
                     </tr>
                 }
             </tbody>

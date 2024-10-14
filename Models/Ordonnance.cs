@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ASPBookProject.Models;
 
@@ -10,7 +11,7 @@ public class Ordonnance
     public required string Duree_traitement { get; set; }
     public required string Instructions_specifique { get; set; }
 
-    public int MedecinId { get; set; }
+    public string MedecinId { get; set; }
     public required Medecin Medecin { get; set; }
 
     public int PatientId { get; set; }

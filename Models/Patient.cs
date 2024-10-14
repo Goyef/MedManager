@@ -15,5 +15,5 @@ public class Patient
 
     public List<Antecedent> Antecedents { get; set; } = new();
     public List<Allergie> Allergies { get; set; } = new();
-    public Ordonnance? Ordonnance { get; set; }
+    public List<Ordonnance> Ordonnances { get; set; } = new();
 }
