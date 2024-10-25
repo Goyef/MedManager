@@ -1,0 +1,12 @@
+﻿@model Allergie
+<h2>Créer une nouvelle allergie</h2>
+
+<form asp-action="Add" asp-controller="Allergie" method="post">
+
+    <div class="form-group">
+        <label asp-for="Libelle_al"></label> <input asp-for="Libelle_al" class="form-control" />
+        <span asp-validation-for="Libelle_al" class="text-danger"></span>
+    </div>
+
+    <input type="submit" value="Créer allergie" class="btn btn-primary" />
+</form>

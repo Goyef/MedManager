@@ -1,0 +1,46 @@
+﻿@using System.Collections
+
+@model IEnumerable<Allergie>
+    <h1 class="text-center mb-6">Liste des Allergies</h1>
+@if (Model.Count() > 0)
+{
+    <div class="container text-center mt-4 mb-4">
+        <div class="row">
+            <div class="col-1"></div>
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th>Nom de l'allergie</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var allergie in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(m => allergie.Libelle_al)</td>
+                            <td><a asp-action="Edit" asp-route-id="@allergie.AllergieId" id="accueil">Modifier</a></td>
+                            <td><a asp-action="Delete" asp-route-id="@allergie.AllergieId" id="accueil">Supprimer</a></td>
+                        </tr>
+
+                        @* <div class=" container">
+                                    <h1>Test Exception</h1>
+                                    <form asp-action="ThrowException" method="post">
+                                        <button type="submit" class="btn btn-danger">Lancer une exception</button>
+                                    </form>
+                        </div> *@
+                    }
+        </tbody>
+        </table>
+        <div class="col-1"></div>
+        
+    </div>
+   <a asp-action="Add" id="accueil" class="btn btn-primary">Ajouter une nouvelle allergie</a>
+    </div>
+
+}
+else
+{
+    <p>Il n'y a pas d'allergie</p>
+    <a asp-action="Add" id="accueil" class="btn btn-primary">Ajouter une nouvelle allergie</a>
+}

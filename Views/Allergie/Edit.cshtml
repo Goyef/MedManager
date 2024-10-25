@@ -1,0 +1,15 @@
+﻿@model Allergie
+
+<h2>Éditer Allergie</h2>
+
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="AllergieId" />
+    <div class="form-group">
+        <label asp-for="Libelle_al" class="control-label"></label>
+        <input asp-for="Libelle_al" class="form-control" />
+        <span asp-validation-for="Libelle_al" class="text-danger"></span>
+    </div>
+    <input type="submit" class="btn btn-danger" value="Enregistrer" />
+</form>
+<a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>

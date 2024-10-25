@@ -43,7 +43,8 @@ builder.Services.AddIdentity<Medecin, IdentityRole>(options =>
 
       options.User.RequireUniqueEmail = false;
   }
-).AddEntityFrameworkStores<ApplicationDbContext>();
+).AddEntityFrameworkStores<ApplicationDbContext>()
+.AddDefaultTokenProviders();
 
 builder.Services.ConfigureApplicationCookie(options =>
         options.LoginPath = "/Account/Login"

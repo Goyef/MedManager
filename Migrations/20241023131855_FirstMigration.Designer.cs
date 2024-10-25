@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASPBookProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241009095526_FirstMigration")]
+    [Migration("20241023131855_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -35,7 +35,8 @@ namespace ASPBookProject.Migrations
 
                     b.Property<string>("Libelle_al")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
 
                     b.HasKey("AllergieId");
 
@@ -52,7 +53,8 @@ namespace ASPBookProject.Migrations
 
                     b.Property<string>("Libelle_a")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
 
                     b.HasKey("AntecedentId");
 
@@ -158,10 +160,6 @@ namespace ASPBookProject.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Login_m")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
@@ -181,7 +179,8 @@ namespace ASPBookProject.Migrations
 
                     b.Property<string>("Role")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("longtext");
@@ -219,7 +218,8 @@ namespace ASPBookProject.Migrations
 
                     b.Property<string>("Libelle_med")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("MedicamentId");
 
@@ -234,9 +234,11 @@ namespace ASPBookProject.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("OrdonnanceId"));
 
-                    b.Property<string>("Duree_traitement")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<DateTime>("Date_debut")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("Date_fin")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Instructions_specifique")
                         .IsRequired()
@@ -251,7 +253,8 @@ namespace ASPBookProject.Migrations
 
                     b.Property<string>("Posologie")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("OrdonnanceId");
 
@@ -276,7 +279,8 @@ namespace ASPBookProject.Migrations
 
                     b.Property<string>("Num_secu")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(15)
+                        .HasColumnType("varchar(15)");
 
                     b.Property<string>("Prenom_p")
                         .IsRequired()

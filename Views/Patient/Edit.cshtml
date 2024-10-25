@@ -16,9 +16,13 @@
         <input asp-for="Patient.Prenom_p" class="form-control" />
         <span asp-validation-for="Patient.Prenom_p" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label asp-for="Patient.Sexe_p" class="control-label"></label>
-        <input asp-for="Patient.Sexe_p" class="form-control" />
+  <div class="form-group">
+<label asp-for="Patient.Sexe_p"></label>
+        <select asp-for="Patient.Sexe_p" class="form-control">
+            <option value=""  disabled >Sélectionné le sexe</option>
+            <option value="F" selected>F</option>
+            <option value="M">M</option>
+        </select>
         <span asp-validation-for="Patient.Sexe_p" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -29,7 +33,7 @@
 
     <h4>Antécédents</h4>
     <div class="form-group">
-        @foreach (var antecedent in Model.Antecedents)
+        @foreach (var antecedent in Model.Antecedents )
         {
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="SelectedAntecedentIds" value="@antecedent.AntecedentId"
@@ -59,5 +63,5 @@
 </form>
 
 <div>
-    <a asp-action="Index">Retour à la liste</a>
+    <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
 </div>

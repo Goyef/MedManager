@@ -1,17 +1,44 @@
 ﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
     ViewBag.title = "Dashboard";
 }
-
+<style>
+    img {
+        width: 200px;
+        height: 200px;
+    }
+</style>
+<h2>Tableau de bord</h2>
 <div class="container-fluid">
     <div class="row">
         <div class="col text-center">
 
-            <a asp-action="Index" asp-controller="Patient"><img class="img-thumbnail" src="~/images/patient_icon.png" alt="patient_icon"></a>
+            <a asp-action="Index" asp-controller="Patient"><img class="img-thumbnail" src="~/images/patient_icon.png"
+                    alt="patient_icon"></a>
             <p>Patient</p>
         </div>
-         <div class="col text-center"></div>
+        <div class="col text-center">
+            <a asp-action="Index" asp-controller="Allergie"><img class="img-thumbnail" src="~/images/forbidden_icon.png"
+                    alt="forbidden_icon Allergies"></a>
+            <p>Allergie</p>
+        </div>
+        <div class="col text-center">
+            <a asp-action="Index" asp-controller="Antecedent"><img class="img-thumbnail"
+                    src="~/images/forbidden_icon.png" alt="forbidden_icon Antécédents"></a>
+            <p>Antécédent</p>
+        </div>
+        <div class="col text-center">
+            <a asp-action="Index" asp-controller="Medicament"><img class="img-thumbnail" src="~/images/med_icon2.png"
+                    alt="medicament_icon"></a>
+            <p>Médicament</p>
+        </div>
+        <div class="col text-center">
+            <a asp-action="Index" asp-controller="Ordonnance"><img class="img-thumbnail"
+                    src="~/images/ordonnance_icon.png" alt="ordonnance_icon"></a>
+            <p>Ordonnance</p>
+        </div>
+
     </div>
 </div>

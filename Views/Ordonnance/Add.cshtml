@@ -1,0 +1,74 @@
+﻿@{
+}
+@model OrdonnanceEditViewModel
+
+<h1>Créer une nouvelle ordonnance</h1>
+
+<form asp-action="Add" asp-controller="Ordonnance" method="post">
+
+    <div class="form-group">
+        <label asp-for="Ordonnance.Posologie"></label> <input asp-for="Ordonnance.Posologie" class="form-control" />
+        <span asp-validation-for="Ordonnance.Posologie" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Ordonnance.Date_debut"></label> <input asp-for="Ordonnance.Date_debut" class="form-control"
+            type="date" />
+        <span asp-validation-for=" Ordonnance.Date_debut" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Ordonnance.Date_fin"></label> <input asp-for="Ordonnance.Date_fin" class="form-control" using
+            System.ComponentModel.DataAnnotations.Schema; type="date" />
+        <span asp-validation-for=" Ordonnance.Date_fin" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Ordonnance.Instructions_specifique"></label> <input asp-for="Ordonnance.Instructions_specifique"
+            class="form-control" />
+        <span asp-validation-for="Ordonnance.Instructions_specifique" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Ordonnance.Medecin"></label>
+        <select asp-for="Ordonnance.Medecin" class="form-control">
+            <option value="NotSelected" disabled>Sélectionné le médecin</option>
+            @foreach (var mede in Model.Medecins)
+            {
+                <option value="@mede">@mede.UserName</option>
+            }
+        </select>
+        <span asp-validation-for="Ordonnance.Medecin" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Ordonnance.Patient"></label>
+        <select asp-for="Ordonnance.Patient" class="form-control">
+            <option value="" disabled>Sélectionné le patient</option>
+            @foreach (var pat in Model.Patients)
+            {
+                <option value="@pat">@pat.Prenom_p</option>
+            }
+        </select>
+        <span asp-validation-for="Ordonnance.Patient" class="text-danger"></span>
+    </div>
+    <h4>Medicament</h4>
+    <div class="form-group">
+        @foreach (var med in Model.Medicaments)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="SelectedMedicamentIds" value="@med.MedicamentId"
+                @(Model.SelectedMedicamentId != null && Model.SelectedMedicamentId.Contains(med.MedicamentId) ?
+                    "checked" : "") />
+                <label class="form-check-label">@med.Libelle_med</label>
+            </div>
+        }
+    </div>
+
+
+
+    <br />
+    <input type="submit" value="Créer une ordonnance" class="btn btn-primary" />
+</form>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
+</div>

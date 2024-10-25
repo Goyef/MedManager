@@ -26,6 +26,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.1" /> 
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.1" /> 
+    <PackageReference Include="Syncfusion.HtmlToPdfConverter.Net.Windows" Version="24.1.43" /> 
   </ItemGroup>
 
 </Project>

@@ -1,30 +1,36 @@
 footer {
-    position: fixed;
-    bottom: 0;
+  position: relative;
+  width: 100%;
+  height: 2.5rem;
+  bottom: 0;
 }
 nav {
-    padding-bottom: 5px;
+  padding-bottom: 5px;
 }
 .form-check-input:checked {
-background-color: black;
-border-color: #0d6efd;
+  background-color: black;
+  border-color: #0d6efd;
 }
- a {
-    text-decoration: none;
-    color: black;
-    margin: 0 5%;
+a {
+  text-decoration: none;
+  color: black;
 }
 .space {
-    padding-bottom: 50px;
+  padding-bottom: 50px;
 }
-body {background-color: #faf8b7;}
+body {
+  background-color: #faf8b7;
+  height: 100%;
+}
 
-.btn-danger{
-   text-align: right;
+.btn-danger {
+  text-align: right;
 }
 .gsb {
-    text-align: left;
-    font-size: large;
+  text-align: left;
+  font-size: large;
 }
 
-#accueil {color: white}
+#accueil {
+  color: white;
+}

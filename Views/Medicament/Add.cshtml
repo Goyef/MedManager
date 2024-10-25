@@ -1,0 +1,51 @@
+﻿@{
+}
+@model MedicamentEditViewModel
+
+<h1>Créer un nouveau Médicament</h1>
+
+<form asp-action="Add" asp-controller="Medicament" method="post">
+
+    <div class="form-group">
+        <label asp-for="Medicament.Libelle_med"></label> <input asp-for="Medicament.Libelle_med" class="form-control" />
+        <span asp-validation-for="Medicament.Libelle_med" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Medicament.Contr_indication"></label> <input asp-for="Medicament.Contr_indication" class="form-control" />
+        <span asp-validation-for="Medicament.Contr_indication" class="text-danger"></span>
+    </div>
+
+    <h4>Antécédents</h4>
+    <div class="form-group">
+        @foreach (var antecedent in Model.Antecedents)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="SelectedAntecedentIds"
+                    value="@antecedent.AntecedentId" @(Model.SelectedAntecedentIds != null &&
+                Model.SelectedAntecedentIds.Contains(antecedent.AntecedentId) ? "checked" : "") />
+                <label class="form-check-label">@antecedent.Libelle_a</label>
+            </div>
+        }
+    </div>
+
+    <h4>Allergies</h4>
+    <div class="form-group">
+        @foreach (var allergie in Model.Allergies)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="SelectedAllergieIds" value="@allergie.AllergieId"
+                @(Model.SelectedAllergieIds != null && Model.SelectedAllergieIds.Contains(allergie.AllergieId) ? "checked" :
+                    "") />
+                <label class="form-check-label">@allergie.Libelle_al</label>
+            </div>
+        }
+    </div>
+
+    <br />
+    <input type="submit" value="Créer un Médicament" class="btn btn-primary" />
+</form>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
+</div>

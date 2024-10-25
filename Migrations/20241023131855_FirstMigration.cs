@@ -23,7 +23,7 @@ namespace ASPBookProject.Migrations
                 {
                     AllergieId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Libelle_al = table.Column<string>(type: "longtext", nullable: false)
+                    Libelle_al = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -38,7 +38,7 @@ namespace ASPBookProject.Migrations
                 {
                     AntecedentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Libelle_a = table.Column<string>(type: "longtext", nullable: false)
+                    Libelle_a = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -73,9 +73,7 @@ namespace ASPBookProject.Migrations
                     Id = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Date_naissance_m = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Login_m = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Role = table.Column<string>(type: "longtext", nullable: false)
+                    Role = table.Column<string>(type: "varchar(30)", maxLength: 30, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     UserName = table.Column<string>(type: "varchar(256)", maxLength: 256, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -140,7 +138,7 @@ namespace ASPBookProject.Migrations
                 {
                     MedicamentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Libelle_med = table.Column<string>(type: "longtext", nullable: false)
+                    Libelle_med = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Contr_indication = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
@@ -163,7 +161,7 @@ namespace ASPBookProject.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Sexe_p = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Num_secu = table.Column<string>(type: "longtext", nullable: false)
+                    Num_secu = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -426,10 +424,10 @@ namespace ASPBookProject.Migrations
                 {
                     OrdonnanceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Posologie = table.Column<string>(type: "longtext", nullable: false)
+                    Posologie = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Duree_traitement = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Date_debut = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Date_fin = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Instructions_specifique = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     MedecinId = table.Column<string>(type: "varchar(255)", nullable: false)

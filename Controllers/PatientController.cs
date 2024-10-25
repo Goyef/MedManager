@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using ASPBookProject.Data;
 using ASPBookProject.Models;
+using ASPBookProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 // Modèle ViewModel
 public class PatientEditViewModel
 {
+    [Required]
     public Patient? Patient { get; set; }
     public List<Antecedent>? Antecedents { get; set; }
     public List<Allergie>? Allergies { get; set; }
@@ -33,13 +36,109 @@ namespace ASPBookProject.Controllers
         }
 
 
-        [Authorize]
+
         // GET: PatientController
-        public ActionResult Index()
+        /*public ActionResult Index()
         {
             List<Patient> patients = new List<Patient>();
             patients = _context.Patients.ToList();
             return View(patients);
+        }*/
+
+        [Authorize]
+        public IActionResult Index(string searchString)
+        {
+            //List<Patient> patients = new List<Patient>();
+            var patients = from p in _context.Patients select p;
+            //patients = _context.Patients.ToList();
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                patients = patients.Where(p => p.Nom_p.Contains(searchString) || p.Prenom_p.Contains(searchString)
+                || p.Sexe_p.Contains(searchString) || p.Num_secu.Contains(searchString));
+                return View(patients);
+            }
+            return View(patients);
+        }
+
+        public async Task<IActionResult> ShowDetails(int id)
+        {
+            var patient = await _context.Patients
+                .Include(p => p.Antecedents)
+                .Include(p => p.Allergies)
+                .FirstOrDefaultAsync(p => p.PatientId == id);
+
+            if (patient == null)
+                return NotFound();
+
+            var viewModel = new PatientEditViewModel
+            {
+                Patient = patient,
+                Antecedents = patient.Antecedents.ToList(),
+                Allergies = patient.Allergies.ToList()
+
+            };
+
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> Add()
+        {
+
+            var viewModel = new PatientEditViewModel
+            {
+
+                Antecedents = await _context.Antecedents.ToListAsync(),
+                Allergies = await _context.Allergies.ToListAsync(),
+                SelectedAntecedentIds = new List<int>(),
+                SelectedAllergieIds = new List<int>()
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Add(PatientEditViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Antecedents = await _context.Antecedents.ToListAsync();
+                viewModel.Allergies = await _context.Allergies.ToListAsync();
+                return View(viewModel);
+            }
+            Patient patient = new Patient
+            {
+                Nom_p = viewModel.Patient.Nom_p,
+                Prenom_p = viewModel.Patient.Prenom_p,
+                Sexe_p = viewModel.Patient.Sexe_p,
+                Num_secu = viewModel.Patient.Num_secu,
+                Allergies = new List<Allergie>(),
+                Antecedents = new List<Antecedent>()
+            };
+
+            if (viewModel.SelectedAllergieIds != null)
+            {
+                var selectedAllergies = await _context.Allergies
+                    .Where(a => viewModel.SelectedAllergieIds.Contains(a.AllergieId))
+                    .ToListAsync();
+                foreach (var allergie in selectedAllergies)
+                {
+                    patient.Allergies.Add(allergie);
+                }
+            }
+            if (viewModel.SelectedAntecedentIds != null)
+            {
+                var selectedAntecedents = await _context.Antecedents
+                    .Where(a => viewModel.SelectedAntecedentIds.Contains(a.AntecedentId))
+                    .ToListAsync();
+                foreach (var antecedent in selectedAntecedents)
+                {
+                    patient.Antecedents.Add(antecedent);
+                }
+            }
+            _context.Patients.Add(patient);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         // Edit: PatientController 
@@ -51,9 +150,7 @@ namespace ASPBookProject.Controllers
                 .FirstOrDefaultAsync(p => p.PatientId == id);
 
             if (patient == null)
-            {
                 return NotFound();
-            }
 
             var viewModel = new PatientEditViewModel
             {
@@ -68,8 +165,7 @@ namespace ASPBookProject.Controllers
         }
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, PatientEditViewModel viewModel)
         {
             if (id != viewModel.Patient.PatientId)
@@ -77,12 +173,11 @@ namespace ASPBookProject.Controllers
                 return NotFound();
             }
             if (!ModelState.IsValid)
-{
- 
-    viewModel.Antecedents = await _context.Antecedents.ToListAsync();
-    viewModel.Allergies = await _context.Allergies.ToListAsync();
-    return View(viewModel);
-}
+            {
+                viewModel.Antecedents = await _context.Antecedents.ToListAsync();
+                viewModel.Allergies = await _context.Allergies.ToListAsync();
+                return View(viewModel);
+            }
             if (ModelState.IsValid)
             {
                 try

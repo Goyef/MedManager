@@ -1,59 +1,77 @@
 ﻿@{
- ViewBag.title = "Index";
+    ViewBag.title = "Index";
 }
- 
+
 @model IEnumerable<Patient>
-    <style>
-        .text-center, mb-6{
-            padding-bottom: 2em;
-        }
-    </style>
-      <h1 class="text-center mb-6">Liste des Patients</h1>
-    @if (Model.Count() > 0)
-    {
-      <div class="container text-center">
-      <div class="row">
-        <div class="col-1"></div>
-        <table class="table table-dark table-hover">
-            <thead>
-                <tr>
-                    <th>Nom de famille</th>
-                    <th>Prénom</th>
-                    <th>Sexe_p</th>
-                    <th>Num_secu</th>
-                    <th>Details (Html Helper)</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var Patient in Model)
-                {
-                    <tr>
-                        <td>@Html.DisplayFor(m => Patient.Nom_p)</td>
-                        <td>@Html.DisplayFor(m => Patient.Prenom_p)</td>
-                        <td>@Html.DisplayFor(m => Patient.Sexe_p)</td>
-                        <td>@Html.DisplayFor(m => Patient.Num_secu)</td>
- 
-                        @* <TD>@Html.ActionLink("details", "ShowDetails", new { id = @Patient.PatientId })</TD> *@
-                        <TD><a asp-action="Edit" asp-route-id="@Patient.PatientId" id="accueil"> edit</a> </TD>
-                          <div class="container">
-        <h1>Test Exception</h1>
-        <form asp-action="ThrowException" method="post">
-            <button type="submit" class="btn btn-danger">Lancer une exception</button>
-        </form>
+<style>
+    .text-center,
+    mb-6 {
+        padding-bottom: 2em;
+    }
+</style>
+<h1 class="text-center mb-6">Liste des Patients</h1>
+
+
+<form asp-controller="Patient" asp-action="Index" method="get">
+    <div class="row">
+        <div class="col-6">
+            <input type="text" name="searchString" class="form-control">
+        </div>
+        <div class="col-2">
+            <input type="submit" value="rechercher" class="btn btn-primary" />
+        </div>
+        <div class="col-2">
+            <input type="submit" value="rafraichir la liste" class="btn btn-danger" />
+        </div>
     </div>
+</form>
+@if (Model.Count() > 0)
+{
+    <div class="container text-center mt-4 mb-4">
+        <div class="row">
+            <div class="col-1"></div>
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th>Nom de famille</th>
+                        <th>Prénom</th>
+                        <th>Sexe_p</th>
+                        <th>Num_secu</th>
+                        <th>Modifier</th>
+                        <th>Details</th>
                     </tr>
-                }
-            </tbody>
+                </thead>
+                <tbody>
+                    @foreach (var Patient in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(m => Patient.Nom_p)</td>
+                            <td>@Html.DisplayFor(m => Patient.Prenom_p)</td>
+                            <td>@Html.DisplayFor(m => Patient.Sexe_p)</td>
+                            <td>@Html.DisplayFor(m => Patient.Num_secu)</td>
+
+                            @* <TD>@Html.ActionLink("details", "ShowDetails", new { id = @Patient.PatientId })</TD> *@
+                            <td><a asp-action="Edit" asp-route-id="@Patient.PatientId" id="accueil"> Modifier</a> </td>
+                            <td><a asp-action="ShowDetails" asp-route-id="@Patient.PatientId" id="accueil">Détails</a></td>
+                        </tr>
+
+                        @* <div class=" container">
+                                    <h1>Test Exception</h1>
+                                    <form asp-action="ThrowException" method="post">
+                                        <button type="submit" class="btn btn-danger">Lancer une exception</button>
+                                    </form>
+                        </div> *@
+                    }
+        </tbody>
         </table>
         <div class="col-1"></div>
-      </div>
-      </div>
+        
+    </div>
+   <a asp-action="Add" id="accueil" class="btn btn-primary   ">Ajouter un nouveau patient</a>
+    </div>
 
-    }
-    else
-    {
-        <p>Il n'y a pas de patient</p>
-    }
-   
-
- 
+}
+else
+{
+    <p>Il n'y a pas de patient</p>
+}

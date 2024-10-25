@@ -23,6 +23,7 @@ public class ApplicationDbContext : IdentityDbContext<Medecin>
     // Constructeur
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
+
     }
 
 
@@ -108,6 +109,7 @@ public class ApplicationDbContext : IdentityDbContext<Medecin>
             }
 
             );
+
         modelBuilder.Entity<Patient>().HasData(
        new Patient()
        {
@@ -116,7 +118,15 @@ public class ApplicationDbContext : IdentityDbContext<Medecin>
            Prenom_p = "Doe",
            Num_secu = "1231",
            Sexe_p = "ed",
-       });
+       }
+       );
+        modelBuilder.Entity<Allergie>().HasData(
+         new Allergie()
+         {
+             AllergieId = 1,
+             Libelle_al = "Coriandre",
+         }
+        );
     }
 
 
