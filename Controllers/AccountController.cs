@@ -45,7 +45,7 @@ public class AccountController : Controller
                 return RedirectToAction("Index", "Dashboard");
             }
 
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            ModelState.AddModelError(string.Empty, "Erreur lors du login");
         }
 
         return View(model);

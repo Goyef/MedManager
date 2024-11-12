@@ -16,6 +16,7 @@
                         <th>Instructions spécifiques</th>
                         <th>Médecin</th>
                         <th>Patient</th>
+                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,7 @@
                             <td><a asp-action="Edit" asp-route-id="@ordonnance.OrdonnanceId" id="accueil">Modifier</a></td>
                             <td><a asp-action="ShowDetails" asp-route-id="@ordonnance.OrdonnanceId" id="accueil">Détails</a></td>
                             <td><a asp-action="Export" asp-route-id="@ordonnance.OrdonnanceId" id="accueil">Exporter en PDF</a></td>
+                             <td><a asp-action="Delete" asp-route-id="@ordonnance.OrdonnanceId" id="accueil">Supprimer</a></td>
                         </tr>
 
                         @* <div class=" container">

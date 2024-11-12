@@ -3,7 +3,9 @@
 using System;
 using ASPBookProject.Data;
 using ASPBookProject.Models;
+using ASPBookProject.Services.Class;
 using ASPBookProject.Services.FakeDataService;
+using ASPBookProject.Services.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddControllersWithViews();
 
 
@@ -94,7 +96,7 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Account}/{action=Login}/{id?}"
+    pattern: "{controller=Dashboard}/{action=Index}/{id?}"
 );
 
 app.Run();

@@ -1,13 +1,17 @@
 using System.Net;
 using System.Net.Mail;
+using ASPBookProject.Services.Interface;
+using ASPBookProject.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPBookProject.Controllers
 {
     public class AideController : Controller
     {
+
+      
         // GET: AideController
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View();
         }
@@ -17,34 +21,34 @@ namespace ASPBookProject.Controllers
             return View();
         }
 
-        public IActionResult Contact()
+        [HttpGet]
+        public  IActionResult Contact()
         {
             return View();
         }
 
-        [HttpPost]
-        public ActionResult SendEmail(string to, string subject, string body)
+        [HttpPost, ActionName("Contact")]
+        public IActionResult ContactPost(MailViewModel viewModel)
         {
-            try
+            string sender = "bts.testperso@gmail.com";
+            string pw = "ppig gflv vmwp ctve";
+            string receiver = "saruelucas2@gmail.com";
+            string messageComplet = viewModel.Nom + "\n" + viewModel.Prenom  + "\n" + viewModel.email
+            + "\n" + viewModel.telephone   + "\n" + viewModel.message;
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress(sender);
+            message.Subject ="Nouveau Message";
+            message.To.Add(receiver);
+            message.Body= messageComplet;        
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
             {
-                MailMessage email = new MailMessage();
-                email.From = new MailAddress("expediteur@tutoriel.fr");
-                email.To.Add(new MailAddress(to));
-                email.Subject = subject;
-                email.Body = body;
-
-                SmtpClient smtp = new SmtpClient("smtp.votre-serveur-smtp.com");
-                smtp.Credentials = new NetworkCredential("votre-email@tutoriel.fr", "votre-mot-de-passe");
-                smtp.Send(email);
-
-                ViewBag.Message = "Email envoyé avec succès!";
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Message = "Erreur lors de l'envoi de l'email: " + ex.Message;
-            }
-
-            return View();
+                Port = 587,
+                Credentials = new NetworkCredential(sender, pw),
+                EnableSsl = true,
+            };
+            smtpClient.Send(message);
+            return RedirectToAction("Index");
         }
     }
 }

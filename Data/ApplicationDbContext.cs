@@ -116,8 +116,8 @@ public class ApplicationDbContext : IdentityDbContext<Medecin>
            PatientId = 1,
            Nom_p = "John",
            Prenom_p = "Doe",
-           Num_secu = "1231",
-           Sexe_p = "ed",
+           Num_secu = "123123123123123",
+           Sexe_p = "m",
        }
        );
         modelBuilder.Entity<Allergie>().HasData(

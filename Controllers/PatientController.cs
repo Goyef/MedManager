@@ -35,16 +35,6 @@ namespace ASPBookProject.Controllers
             _context = context;
         }
 
-
-
-        // GET: PatientController
-        /*public ActionResult Index()
-        {
-            List<Patient> patients = new List<Patient>();
-            patients = _context.Patients.ToList();
-            return View(patients);
-        }*/
-
         [Authorize]
         public IActionResult Index(string searchString)
         {

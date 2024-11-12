@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASPBookProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241023131855_FirstMigration")]
+    [Migration("20241111220529_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -41,6 +41,13 @@ namespace ASPBookProject.Migrations
                     b.HasKey("AllergieId");
 
                     b.ToTable("Allergies");
+
+                    b.HasData(
+                        new
+                        {
+                            AllergieId = 1,
+                            Libelle_al = "Coriandre"
+                        });
                 });
 
             modelBuilder.Entity("ASPBookProject.Models.Antecedent", b =>
@@ -221,6 +228,9 @@ namespace ASPBookProject.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<int>("compteur")
+                        .HasColumnType("int");
+
                     b.HasKey("MedicamentId");
 
                     b.ToTable("Medicaments");
@@ -241,7 +251,6 @@ namespace ASPBookProject.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Instructions_specifique")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("MedecinId")
@@ -253,8 +262,7 @@ namespace ASPBookProject.Migrations
 
                     b.Property<string>("Posologie")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("OrdonnanceId");
 
@@ -299,9 +307,9 @@ namespace ASPBookProject.Migrations
                         {
                             PatientId = 1,
                             Nom_p = "John",
-                            Num_secu = "1231",
+                            Num_secu = "123123123123123",
                             Prenom_p = "Doe",
-                            Sexe_p = "ed"
+                            Sexe_p = "m"
                         });
                 });
 

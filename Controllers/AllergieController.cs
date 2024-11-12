@@ -50,7 +50,7 @@ namespace ASPBookProject.Controllers
         [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
-            var allergie = await _context.Allergies.FirstOrDefaultAsync(a => a.AllergieId == id);
+            var allergie = await _context.Allergies.Include(a => a.Medicaments).FirstOrDefaultAsync(a => a.AllergieId == id);
             if (allergie == null)
                 return NotFound();
 
@@ -58,13 +58,13 @@ namespace ASPBookProject.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public IActionResult Edit(Allergie allergie)
+        public async Task<IActionResult> Edit(Allergie allergie)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
-            Allergie? aller = _context.Allergies.FirstOrDefault<Allergie>(all => all.AllergieId == allergie.AllergieId);
+            Allergie? aller = await _context.Allergies.FirstOrDefaultAsync(all => all.AllergieId == allergie.AllergieId);
             if (aller != null)
             {
                 aller.Libelle_al = allergie.Libelle_al;

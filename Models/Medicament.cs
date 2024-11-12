@@ -11,6 +11,8 @@ public class Medicament
     public required string Libelle_med { get; set; }
     public required string Contr_indication { get; set; }
 
+    public int compteur {get;set;}
+
     public List<Allergie> Allergies { get; set; } = new();
     public List<Antecedent> Antecedents { get; set; } = new();
     public List<Ordonnance> Ordonnances { get; set; } = new();

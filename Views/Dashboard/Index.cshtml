@@ -1,6 +1,5 @@
-﻿@*
-For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using System.Collections
+@model IEnumerable<Ordonnance>
 @{
     ViewBag.title = "Dashboard";
 }
@@ -39,6 +38,47 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                     src="~/images/ordonnance_icon.png" alt="ordonnance_icon"></a>
             <p>Ordonnance</p>
         </div>
-
     </div>
 </div>
+
+    <h1 class="text-center mb-6">Liste des Ordonnances en cours</h1>
+@if (Model.Count() > 0)
+{
+    <div class="container text-center mt-4 mb-4">
+        <div class="row">
+            <div class="col-1"></div>
+            <table class="table table-dark table-hover">
+                <thead>
+                    <tr>
+                        <th>Posologie</th>
+                        <th>Date début</th>
+                        <th>Date fin</th>
+                        <th>Instructions spécifiques</th>
+                        <th>Médecin</th>
+                        <th>Patient</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var ordonnance in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(o => ordonnance.Posologie)</td>
+                            <td>@Html.DisplayFor(o => ordonnance.Date_debut)</td>
+                            <td>@Html.DisplayFor(o => ordonnance.Date_fin)</td>
+                            <td>@Html.DisplayFor(o => ordonnance.Instructions_specifique)</td>
+                            <td>@Html.DisplayFor(o => ordonnance.Medecin.UserName)</td>
+                            <td>@Html.DisplayFor(o => ordonnance.Patient.Nom_p)</td>
+                        </tr>
+                    }
+        </tbody>
+        </table>
+        <div class="col-1"></div>
+        
+    </div>
+    </div>
+
+}
+else
+{
+    <p>Il n'y a pas d'ordonnance en cours</p>
+}

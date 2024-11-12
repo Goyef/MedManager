@@ -141,7 +141,8 @@ namespace ASPBookProject.Migrations
                     Libelle_med = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Contr_indication = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    compteur = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -424,11 +425,11 @@ namespace ASPBookProject.Migrations
                 {
                     OrdonnanceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Posologie = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                    Posologie = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Date_debut = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Date_fin = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Instructions_specifique = table.Column<string>(type: "longtext", nullable: false)
+                    Instructions_specifique = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     MedecinId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -478,6 +479,11 @@ namespace ASPBookProject.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.InsertData(
+                table: "Allergies",
+                columns: new[] { "AllergieId", "Libelle_al" },
+                values: new object[] { 1, "Coriandre" });
+
+            migrationBuilder.InsertData(
                 table: "Instructors",
                 columns: new[] { "InstructorId", "EmailAddress", "FirstName", "HiringDate", "IsTenured", "LastName", "Password", "PersonalUrl", "PhoneNumber", "Rank" },
                 values: new object[,]
@@ -490,7 +496,7 @@ namespace ASPBookProject.Migrations
             migrationBuilder.InsertData(
                 table: "Patients",
                 columns: new[] { "PatientId", "Nom_p", "Num_secu", "Prenom_p", "Sexe_p" },
-                values: new object[] { 1, "John", "1231", "Doe", "ed" });
+                values: new object[] { 1, "John", "123123123123123", "Doe", "m" });
 
             migrationBuilder.InsertData(
                 table: "Roster",
