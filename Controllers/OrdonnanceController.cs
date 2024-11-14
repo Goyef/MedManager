@@ -26,13 +26,14 @@ namespace ASPBookProject.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            string medecinId = _userManager.GetUserId(User);
+            string? medecinId = _userManager.GetUserId(User);
             List<Ordonnance> ordonnances = new List<Ordonnance>();
             ordonnances = await _context.Ordonnances
                                 .Include(o => o.Medecin) 
                                 .Where(o => o.MedecinId == medecinId)
                                 .Include(o =>o.Patient)
                                 .ToListAsync();
+                                
             ordonnances.OrderByDescending(o => o.Patient.Nom_p);
 
             return View(ordonnances);
@@ -65,8 +66,8 @@ namespace ASPBookProject.Controllers
 
         public async Task<IActionResult> Add()
         {
-             var MedecinID = _userManager.GetUserId(User);
-            Medecin med = _userManager.FindByIdAsync(MedecinID).Result;
+            string? MedecinId = _userManager.GetUserId(User);
+            Medecin? med = _userManager.FindByIdAsync(MedecinId).Result;
             if(med == null)
             {
                 return RedirectToAction("Logout", "Dashboard");
@@ -92,8 +93,8 @@ namespace ASPBookProject.Controllers
                 viewModel.Medicaments = await _context.Medicaments.ToListAsync();
                 return View(viewModel);
             }
-            var MedecinID = _userManager.GetUserId(User);
-            Medecin med = _userManager.FindByIdAsync(MedecinID).Result;
+            string? MedecinId = _userManager.GetUserId(User);
+            Medecin med = _userManager.FindByIdAsync(MedecinId).Result;
             int result = DateTime.Compare(viewModel.Date_debut, viewModel.Date_fin);
             if (result > 0)
             {
@@ -116,7 +117,7 @@ namespace ASPBookProject.Controllers
                 Date_debut = viewModel.Date_debut,
                 Date_fin = viewModel.Date_fin,
                 Instructions_specifique = viewModel.Instructions_specifique,
-                MedecinId = MedecinID,
+                MedecinId = MedecinId,
                 Medecin = med,
                 PatientId = (int)viewModel.PatientId,
                 Patient = patient,
@@ -142,8 +143,7 @@ namespace ASPBookProject.Controllers
                         ModelState.AddModelError("", "Veuillez chosir au moins 1 médicament");
                         return View(viewModel);
                     }
-                bool resultAdd = VerifyImpossibility(ordonnance);
-                    if (!resultAdd)
+                    if (!VerifyImpossibility(ordonnance))
                     {
                         viewModel.Patients = await _context.Patients.ToListAsync();
                         viewModel.Medicaments = await _context.Medicaments.ToListAsync();
@@ -255,11 +255,10 @@ namespace ASPBookProject.Controllers
                     else {
                         viewModel.Patients = await _context.Patients.ToListAsync();
                         viewModel.Medicaments = await _context.Medicaments.ToListAsync();
-                        ModelState.AddModelError("", "Veuillez rchosir au moins 1 médicament");
+                        ModelState.AddModelError("", "Veuillez choisir au moins 1 médicament");
                         return View(viewModel);
                     }
-                    bool resultEdit = VerifyImpossibility(ordonnance);
-                    if (!resultEdit)
+                    if (!VerifyImpossibility(ordonnance))
                     {
                         viewModel.Patients = await _context.Patients.ToListAsync();
                         viewModel.Medicaments = await _context.Medicaments.ToListAsync();
@@ -273,7 +272,6 @@ namespace ASPBookProject.Controllers
                 catch (DbUpdateConcurrencyException ex)
                 {
                     ThrowException();
-                    Console.WriteLine(ex.Message);
                     if (!OrdonnanceExist((int)viewModel.OrdonnanceId))
                     {
                         return NotFound();

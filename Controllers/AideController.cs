@@ -40,7 +40,8 @@ namespace ASPBookProject.Controllers
             message.Subject ="Nouveau Message";
             message.To.Add(receiver);
             message.Body= messageComplet;        
-
+            if(!ModelState.IsValid)
+                return View(viewModel);
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,

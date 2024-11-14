@@ -159,7 +159,7 @@ public class AccountController : Controller
     {
         string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         Medecin user = _userManager.FindByIdAsync(userId).Result;
-
+        user.PasswordHash = "";
 
         return View(user);
     }

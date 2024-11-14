@@ -44,8 +44,8 @@
                         <tr>
                             <td>@Html.DisplayFor(m => Medicament.Libelle_med)</td>
                             <td>@Html.DisplayFor(m => Medicament.Contr_indication)</td>
-                            <td><a asp-action="Edit" asp-route-id="@Medicament.MedicamentId" id="accueil"> Modifier</a> </td>
-                            <td><a asp-action="ShowDetails" asp-route-id="@Medicament.MedicamentId" id="accueil">Détails</a></td>
+                            <td><a asp-action="Edit" asp-route-id="@Medicament.MedicamentId" id="accueil" class="btn"> Modifier</a> 
+                            <a asp-action="ShowDetails" asp-route-id="@Medicament.MedicamentId" id="accueil" class="btn">Détails</a></td>
                         </tr>
 
                         @* <div class=" container">

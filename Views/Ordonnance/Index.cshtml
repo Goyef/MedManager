@@ -29,18 +29,12 @@
                             <td>@Html.DisplayFor(o => ordonnance.Instructions_specifique)</td>
                             <td>@Html.DisplayFor(o => ordonnance.Medecin.UserName)</td>
                             <td>@Html.DisplayFor(o => ordonnance.Patient.Nom_p)</td>
-                            <td><a asp-action="Edit" asp-route-id="@ordonnance.OrdonnanceId" id="accueil">Modifier</a></td>
-                            <td><a asp-action="ShowDetails" asp-route-id="@ordonnance.OrdonnanceId" id="accueil">Détails</a></td>
-                            <td><a asp-action="Export" asp-route-id="@ordonnance.OrdonnanceId" id="accueil">Exporter en PDF</a></td>
-                             <td><a asp-action="Delete" asp-route-id="@ordonnance.OrdonnanceId" id="accueil">Supprimer</a></td>
+                            <td><a asp-action="Edit" asp-route-id="@ordonnance.OrdonnanceId" id="accueil" class="btn">Modifier</a>
+                            <a asp-action="ShowDetails" asp-route-id="@ordonnance.OrdonnanceId"  id="accueil" class="btn">Détails</a>
+                            <a asp-action="Export" asp-route-id="@ordonnance.OrdonnanceId" id="accueil" class="btn">Exporter en PDF</a>
+                            <a asp-action="Delete" asp-route-id="@ordonnance.OrdonnanceId" id="accueil" class="btn">Supprimer</a></td>
                         </tr>
 
-                        @* <div class=" container">
-                                    <h1>Test Exception</h1>
-                                    <form asp-action="ThrowException" method="post">
-                                        <button type="submit" class="btn btn-danger">Lancer une exception</button>
-                                    </form>
-                        </div> *@
                     }
         </tbody>
         </table>

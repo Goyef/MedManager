@@ -76,7 +76,6 @@ namespace ASPBookProject.Controllers
 
             var viewModel = new PatientEditViewModel
             {
-
                 Antecedents = await _context.Antecedents.ToListAsync(),
                 Allergies = await _context.Allergies.ToListAsync(),
                 SelectedAntecedentIds = new List<int>(),

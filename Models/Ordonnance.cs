@@ -7,6 +7,7 @@ namespace ASPBookProject.Models;
 
 public class Ordonnance
 {
+    [Key]
     public int OrdonnanceId { get; set; }
 
     public required string  Posologie { get; set; }

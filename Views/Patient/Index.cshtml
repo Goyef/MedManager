@@ -51,8 +51,8 @@
                             <td>@Html.DisplayFor(m => Patient.Num_secu)</td>
 
                             @* <TD>@Html.ActionLink("details", "ShowDetails", new { id = @Patient.PatientId })</TD> *@
-                            <td><a asp-action="Edit" asp-route-id="@Patient.PatientId" id="accueil"> Modifier</a> </td>
-                            <td><a asp-action="ShowDetails" asp-route-id="@Patient.PatientId" id="accueil">Détails</a></td>
+                            <td><a asp-action="Edit" asp-route-id="@Patient.PatientId" id="accueil" class="btn"> Modifier</a> 
+                            <a asp-action="ShowDetails" asp-route-id="@Patient.PatientId" id="accueil" class="btn">Détails</a></td>
                         </tr>
 
                         @* <div class=" container">

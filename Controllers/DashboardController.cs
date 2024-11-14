@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using ASPBookProject.ViewModels;
 
 namespace ASPBookProject.Controllers
 {
@@ -30,14 +31,30 @@ namespace ASPBookProject.Controllers
             }
             List<Ordonnance> ordonnances = new List<Ordonnance>();
             ordonnances = await _context.Ordonnances
-                                .Where(o => o.Date_debut <= DateTime.Now && o.Date_fin >= DateTime.Now)
                                 .Include(o => o.Medecin) 
                                 .Where(o => o.MedecinId == medecinId)
                                 .Include(o =>o.Patient)
                                 .ToListAsync();
+             var ordonnancesCurrent = ordonnances
+                    .Where(o => o.Date_debut <= DateTime.Now.Date && o.Date_fin >= DateTime.Now.Date)
+                    .OrderByDescending(o => o.Patient.Nom_p)
+                    .ToList();
+            
             ordonnances.OrderByDescending(o => o.Patient.Nom_p);
-            return View(ordonnances);
-        }
+           
 
-    }
+             var recentPatients = ordonnances
+         .Where(o => o.Date_debut >= DateTime.Now.AddDays(-30))
+         .Select(o => o.Patient)
+         .ToHashSet().ToList();
+
+         var viewModel = new DashboardViewModel
+    {
+        Ordonnances = ordonnancesCurrent,
+        RecentPatients = recentPatients
+    };
+
+    return View(viewModel);
+
+    }}
 }

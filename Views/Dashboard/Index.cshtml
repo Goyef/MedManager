@@ -1,5 +1,5 @@
 ﻿@using System.Collections
-@model IEnumerable<Ordonnance>
+@model DashboardViewModel
 @{
     ViewBag.title = "Dashboard";
 }
@@ -8,46 +8,47 @@
         width: 200px;
         height: 200px;
     }
+
+    .icon-very-large {font-size: 130px;}
 </style>
 <h2>Tableau de bord</h2>
 <div class="container-fluid">
     <div class="row">
         <div class="col text-center">
 
-            <a asp-action="Index" asp-controller="Patient"><img class="img-thumbnail" src="~/images/patient_icon.png"
-                    alt="patient_icon"></a>
+            <a asp-action="Index" asp-controller="Patient"><i class="bi bi-person-circle icon-very-large"></i></a>
             <p>Patient</p>
         </div>
         <div class="col text-center">
-            <a asp-action="Index" asp-controller="Allergie"><img class="img-thumbnail" src="~/images/forbidden_icon.png"
-                    alt="forbidden_icon Allergies"></a>
+            <a asp-action="Index" asp-controller="Allergie"><i class="bi bi-ban icon-very-large"></i></a>
             <p>Allergie</p>
         </div>
         <div class="col text-center">
-            <a asp-action="Index" asp-controller="Antecedent"><img class="img-thumbnail"
-                    src="~/images/forbidden_icon.png" alt="forbidden_icon Antécédents"></a>
+            <a asp-action="Index" asp-controller="Antecedent"><i class="bi bi-ban icon-very-large"></i></a>
             <p>Antécédent</p>
         </div>
         <div class="col text-center">
-            <a asp-action="Index" asp-controller="Medicament"><img class="img-thumbnail" src="~/images/med_icon2.png"
-                    alt="medicament_icon"></a>
+            <a asp-action="Index" asp-controller="Medicament"><i class="bi bi-capsule icon-very-large"></i></a>
             <p>Médicament</p>
         </div>
         <div class="col text-center">
-            <a asp-action="Index" asp-controller="Ordonnance"><img class="img-thumbnail"
-                    src="~/images/ordonnance_icon.png" alt="ordonnance_icon"></a>
+            <a asp-action="Index" asp-controller="Ordonnance"><i class="bi bi-prescription2 icon-very-large"></i></a>
             <p>Ordonnance</p>
+        </div>
+            <div class="col text-center">
+            <a asp-action="Index" asp-controller="Rapport"><i class="bi bi-bar-chart-line icon-very-large" ></i></a>
+            <p>Rapport et statistique</p>
         </div>
     </div>
 </div>
-
-    <h1 class="text-center mb-6">Liste des Ordonnances en cours</h1>
-@if (Model.Count() > 0)
+<br />
+    <h2 class="text-center mb-6">Liste des Ordonnances en cours</h1>
+@if (Model.Ordonnances.Count() > 0)
 {
     <div class="container text-center mt-4 mb-4">
         <div class="row">
             <div class="col-1"></div>
-            <table class="table table-dark table-hover">
+            <table class="table table-dark table-hover table-striped">
                 <thead>
                     <tr>
                         <th>Posologie</th>
@@ -59,16 +60,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var ordonnance in Model)
+                    @foreach (var ordonnance in Model.Ordonnances)
                     {
-                        <tr>
                             <td>@Html.DisplayFor(o => ordonnance.Posologie)</td>
                             <td>@Html.DisplayFor(o => ordonnance.Date_debut)</td>
                             <td>@Html.DisplayFor(o => ordonnance.Date_fin)</td>
                             <td>@Html.DisplayFor(o => ordonnance.Instructions_specifique)</td>
                             <td>@Html.DisplayFor(o => ordonnance.Medecin.UserName)</td>
                             <td>@Html.DisplayFor(o => ordonnance.Patient.Nom_p)</td>
-                        </tr>
                     }
         </tbody>
         </table>
@@ -81,4 +80,17 @@
 else
 {
     <p>Il n'y a pas d'ordonnance en cours</p>
+}
+
+<h2>Vue d'ensemble des Patients des 30 derniers jours</h2>
+@if (Model.RecentPatients.Count > 0)
+{
+    foreach (var patient in Model.RecentPatients)
+    {
+        <p>@patient.Nom_p</p>
+    }
+}
+else
+{
+    <p>Aucun patient récent trouvé.</p>
 }
