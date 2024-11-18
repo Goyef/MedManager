@@ -1,5 +1,10 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Antecedent
+<form asp-action="Delete" method="post">
+    <div class="form-group">
+        <input type="hidden" asp-for="AntecedentId" />
+        <h2>Voulez vous vraiment supprimer l'antécédent @Model.Libelle_a ?</h2>
+        <br />
+        <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
+        <input type="submit" class="btn btn-danger" value="Supprimer" />
+    </div>
+</form>

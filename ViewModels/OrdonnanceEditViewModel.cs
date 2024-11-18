@@ -6,7 +6,6 @@ namespace ASPBookProject.ViewModels;
 
 public class OrdonnanceEditViewModel
 {
-
     public int? OrdonnanceId { get; set; }
 
     [StringLength(100)]
@@ -16,7 +15,7 @@ public class OrdonnanceEditViewModel
 
     [DataType(DataType.Date)]
     [Required(ErrorMessage = "Le date de début est obligatoire")]
-    public  DateTime Date_debut { get; set; }
+    public DateTime Date_debut { get; set; }
 
     [DataType(DataType.Date)]
     [Required(ErrorMessage = "Le date de fin est obligatoire")]

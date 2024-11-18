@@ -31,7 +31,7 @@
                             <td>@Html.DisplayFor(o => ordonnance.Patient.Nom_p)</td>
                             <td><a asp-action="Edit" asp-route-id="@ordonnance.OrdonnanceId" id="accueil" class="btn">Modifier</a>
                             <a asp-action="ShowDetails" asp-route-id="@ordonnance.OrdonnanceId"  id="accueil" class="btn">Détails</a>
-                            <a asp-action="Export" asp-route-id="@ordonnance.OrdonnanceId" id="accueil" class="btn">Exporter en PDF</a>
+                            <a asp-action="ExportPdf" asp-route-id="@ordonnance.OrdonnanceId" id="accueil" class="btn">Exporter en PDF</a>
                             <a asp-action="Delete" asp-route-id="@ordonnance.OrdonnanceId" id="accueil" class="btn">Supprimer</a></td>
                         </tr>
 
@@ -41,12 +41,11 @@
         <div class="col-1"></div>
         
     </div>
-   <a asp-action="Add" id="accueil" class="btn btn-primary">Ajouter une nouvelle ordonnance</a>
     </div>
 
 }
 else
 {
     <p>Il n'y a pas d'ordonnance</p>
-    <a asp-action="Add" id="accueil" class="btn btn-primary">Ajouter une nouvelle ordonnance</a>
 }
+    <a asp-action="Add" id="accueil" class="btn btn-primary">Ajouter une nouvelle ordonnance</a>

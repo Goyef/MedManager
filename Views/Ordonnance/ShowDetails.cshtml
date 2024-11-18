@@ -4,34 +4,35 @@
 
 <div class="form-group">
     <label asp-for="Posologie" class="control-label"></label>
-    <input asp-for="Posologie" class="form-control" readonly />
-    <span asp-validation-for="Posologie" class="text-danger"></span>
+    <div class="text-body-secondary" >@Html.DisplayFor(model => model.Posologie)</div>
 </div>
+<br/>
 <div class="form-group">
     <label asp-for="Date_debut" class="control-label"></label>
-    <input asp-for="Date_debut" class="form-control" readonly />
-    <span asp-validation-for="Date_debut" class="text-danger"></span>
+    <div class="text-body-secondary">@Html.DisplayFor(model => model.Date_debut)</div>
 </div>
+<br/>
 <div class="form-group">
     <label asp-for="Date_fin" class="control-label"></label>
-    <input asp-for="Date_fin" class="form-control" readonly />
-    <span asp-validation-for="Date_fin" class="text-danger"></span>
+     <div class="text-body-secondary">@Html.DisplayFor(model => model.Date_fin)</div>
 </div>
+<br/>
 <div class="form-group">
     <label asp-for="Instructions_specifique" class="control-label"></label>
-    <input asp-for="Instructions_specifique" class="form-control" readonly />
+     <div class="text-body-secondary" >@Html.DisplayFor(model => model.Instructions_specifique)</div>
 </div>
+<br/>
 <div class="form-group">
     <label asp-for="Patient" class="control-label"></label>
-    <input asp-for="Patient.Prenom_p" class="form-control" readonly />
-    <span asp-validation-for="Patient.Nom_p" class="text-danger"></span>
+   <div class="text-body-secondary">@Html.DisplayFor(model => model.Patient.Prenom_p)</div>
 </div>
+<br/>
 <div class="form-group">
     <label asp-for="Medecin" class="control-label"></label>
-    <input asp-for="Medecin.UserName" class="form-control" readonly />
-    <span asp-validation-for="Medecin.UserName" class="text-danger"></span>
+   <div class="text-body-secondary">@Html.DisplayFor(model => model.Medecin.UserName)</div>
 </div>
-<h4>Medicaments</h3>
+<br/>
+<h4>Medicaments</h4>
     <div class="form-group">
         <ul>
             @foreach (var Medicament in Model.Medicaments)

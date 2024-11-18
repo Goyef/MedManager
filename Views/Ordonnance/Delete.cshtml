@@ -1,0 +1,54 @@
+﻿@model OrdonnanceEditViewModel
+ 
+<h2>Suppression de l'ordonnace</h2>
+<br/>
+<form asp-action="Delete" method="post">
+    <div class="form-group">
+        <input type="hidden" asp-for="OrdonnanceId" />
+        <div class="form-group">
+    <label asp-for="Posologie" class="control-label"></label>
+    <div class="text-body-secondary" >@Html.DisplayFor(model => model.Posologie)</div>
+</div>
+<br/>
+<div class="form-group">
+    <label asp-for="Date_debut" class="control-label"></label>
+    <div class="text-body-secondary">@Html.DisplayFor(model => model.Date_debut)</div>
+</div>
+<br/>
+<div class="form-group">
+    <label asp-for="Date_fin" class="control-label"></label>
+     <div class="text-body-secondary">@Html.DisplayFor(model => model.Date_fin)</div>
+</div>
+<br/>
+<div class="form-group">
+    <label asp-for="Instructions_specifique" class="control-label"></label>
+     <div class="text-body-secondary" >@Html.DisplayFor(model => model.Instructions_specifique)</div>
+</div>
+<br/>
+<div class="form-group">
+    <label asp-for="Patient" class="control-label"></label>
+   <div class="text-body-secondary">@Html.DisplayFor(model => model.Patient.Prenom_p)</div>
+</div>
+<br/>
+<div class="form-group">
+    <label asp-for="Medecin" class="control-label"></label>
+   <div class="text-body-secondary">@Html.DisplayFor(model => model.Medecin.UserName)</div>
+</div>
+<br/>
+<h4>Medicaments</h4>
+    <div class="form-group">
+        <ul>
+            @foreach (var Medicament in Model.Medicaments)
+            {
+                <li>@Medicament.Libelle_med</li>
+            }
+        </ul>
+        <br/>
+        <br/>
+    </div>
+        <h2>Voulez vous vraiment supprimer l'ordonnance ?</h2>
+        <br />
+        <input type="submit" class="btn btn-danger" value="Supprimer" />
+        <a asp-action="Index" class="btn btn-secondary">Annuler</a>
+    </div>
+</form>

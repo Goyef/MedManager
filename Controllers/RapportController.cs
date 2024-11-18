@@ -57,12 +57,12 @@ namespace ASPBookProject.Controllers
         ModelState.AddModelError("", "Vérifiez les dates.");
         return View(viewModel);
     }
-
+    string? medecinId = _userManager.GetUserId(User);
     List<Ordonnance> ordonnancesPeriod = await _context.Ordonnances
         .Where(o => o.Date_debut >= viewModel.DateDebut && o.Date_fin <= viewModel.DateFin)
         .Include(o => o.Patient)
         .Include(o => o.Medecin)
-        .Include(o => o.Medicaments)
+        .Include(o => o.Medicaments).Where(m => m.MedecinId == medecinId)
         .ToListAsync();
 
     return View("PeriodPrescriptionShow", ordonnancesPeriod);

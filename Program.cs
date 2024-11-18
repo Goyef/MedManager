@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Rotativa.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -89,6 +90,9 @@ app.UseAuthentication();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseRotativa();
+var env = app.Environment;
+RotativaConfiguration.Setup(env.WebRootPath, "Rotativa");
 
 
 // Default Routing system

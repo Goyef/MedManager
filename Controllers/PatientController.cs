@@ -38,9 +38,7 @@ namespace ASPBookProject.Controllers
         [Authorize]
         public IActionResult Index(string searchString)
         {
-            //List<Patient> patients = new List<Patient>();
             var patients = from p in _context.Patients select p;
-            //patients = _context.Patients.ToList();
             if (!string.IsNullOrEmpty(searchString))
             {
                 patients = patients.Where(p => p.Nom_p.Contains(searchString) || p.Prenom_p.Contains(searchString)

@@ -73,12 +73,14 @@ namespace ASPBookProject.Controllers
             return NotFound();
 
         }
+        [Authorize]
         public IActionResult Add()
         {
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Add(Antecedent antecedent)
         {
             if (!ModelState.IsValid)

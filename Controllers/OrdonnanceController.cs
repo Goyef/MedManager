@@ -6,9 +6,9 @@ using ASPBookProject.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Rotativa.AspNetCore;
+
 
 namespace ASPBookProject.Controllers
 {
@@ -70,7 +70,7 @@ namespace ASPBookProject.Controllers
             Medecin? med = _userManager.FindByIdAsync(MedecinId).Result;
             if(med == null)
             {
-                return RedirectToAction("Logout", "Dashboard");
+                return RedirectToAction("Logout", "Account");
             }
             var viewModel = new OrdonnanceEditViewModel
             {
@@ -302,7 +302,14 @@ namespace ASPBookProject.Controllers
         }
         public async Task<IActionResult> Delete(int id)
 		{
-			try
+            return View();
+			
+        }
+
+          [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            try
 			{
 				Ordonnance? ordonnance = await _context.Ordonnances.FindAsync(id);
 				if (ordonnance != null)
@@ -407,6 +414,50 @@ namespace ASPBookProject.Controllers
     }
     return antecedents;
 }
+public async Task<IActionResult> PdfOrdonnance(int id)
+{
+    var ordonnance = await _context.Ordonnances
+        .Include(o => o.Medicaments)
+        .Include(o => o.Patient)
+        .Include(o => o.Medecin)
+        .FirstOrDefaultAsync(o => o.OrdonnanceId == id);
 
+    if (ordonnance == null)
+    {
+        return NotFound();
+    }
+
+    var viewModel = new OrdonnanceEditViewModel
+    {
+        OrdonnanceId = ordonnance.OrdonnanceId,
+        Posologie = ordonnance.Posologie,
+        Date_debut = ordonnance.Date_debut,
+        Date_fin = ordonnance.Date_fin,
+        Instructions_specifique = ordonnance.Instructions_specifique,
+        PatientId = ordonnance.PatientId,
+        Patient = ordonnance.Patient,
+        Medecin = ordonnance.Medecin,
+        Medicaments = ordonnance.Medicaments.ToList(),
+    };
+
+    return View (viewModel);
+}
+
+    public async Task<IActionResult> ExportPdf(int id)
+{
+    var viewResult = await PdfOrdonnance(id) as ViewResult;
+
+    if (viewResult == null)
+    {
+        return NotFound();
+    }
+
+    var pdfResult = new ViewAsPdf("PdfOrdonnance", viewResult.Model)
+    {
+        FileName = "Ordonnance.pdf"
+    };
+
+    return pdfResult;
+}
     }
 }

@@ -34,7 +34,7 @@ namespace ASPBookProject.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteAsync(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var allergie = await _context.Allergies.FirstOrDefaultAsync(a => a.AllergieId == id);
             if (allergie == null)
@@ -75,6 +75,7 @@ namespace ASPBookProject.Controllers
             return NotFound();
 
         }
+        [Authorize]
         public IActionResult Add()
         {
             return View();
