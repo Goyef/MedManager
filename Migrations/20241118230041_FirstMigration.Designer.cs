@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASPBookProject.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241111220529_FirstMigration")]
+    [Migration("20241118230041_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -66,77 +66,6 @@ namespace ASPBookProject.Migrations
                     b.HasKey("AntecedentId");
 
                     b.ToTable("Antecedents");
-                });
-
-            modelBuilder.Entity("ASPBookProject.Models.Instructor", b =>
-                {
-                    b.Property<int>("InstructorId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("InstructorId"));
-
-                    b.Property<string>("EmailAddress")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("longtext");
-
-                    b.Property<DateTime?>("HiringDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("IsTenured")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Password")
-                        .HasMaxLength(10)
-                        .HasColumnType("varchar(10)");
-
-                    b.Property<string>("PersonalUrl")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("Rank")
-                        .HasColumnType("int");
-
-                    b.HasKey("InstructorId");
-
-                    b.ToTable("Instructors");
-
-                    b.HasData(
-                        new
-                        {
-                            InstructorId = 1,
-                            FirstName = "Jane",
-                            HiringDate = new DateTime(2010, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsTenured = true,
-                            LastName = "Doe",
-                            Rank = 3
-                        },
-                        new
-                        {
-                            InstructorId = 2,
-                            FirstName = "John",
-                            HiringDate = new DateTime(2015, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsTenured = false,
-                            LastName = "Smith",
-                            Rank = 1
-                        },
-                        new
-                        {
-                            InstructorId = 3,
-                            FirstName = "Jane",
-                            HiringDate = new DateTime(2012, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsTenured = true,
-                            LastName = "Smith",
-                            Rank = 4
-                        });
                 });
 
             modelBuilder.Entity("ASPBookProject.Models.Medecin", b =>
@@ -301,59 +230,6 @@ namespace ASPBookProject.Migrations
                     b.HasKey("PatientId");
 
                     b.ToTable("Patients");
-
-                    b.HasData(
-                        new
-                        {
-                            PatientId = 1,
-                            Nom_p = "John",
-                            Num_secu = "123123123123123",
-                            Prenom_p = "Doe",
-                            Sexe_p = "m"
-                        });
-                });
-
-            modelBuilder.Entity("ASPBookProject.Models.Student", b =>
-                {
-                    b.Property<int>("StudentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("StudentId"));
-
-                    b.Property<DateTime>("AdmissionDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("longtext");
-
-                    b.Property<double>("GPA")
-                        .HasColumnType("double");
-
-                    b.Property<bool>("IsVeteran")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("Major")
-                        .HasColumnType("int");
-
-                    b.HasKey("StudentId");
-
-                    b.ToTable("Roster");
-
-                    b.HasData(
-                        new
-                        {
-                            StudentId = 1,
-                            AdmissionDate = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "John",
-                            GPA = 3.5,
-                            IsVeteran = false,
-                            LastName = "Doe",
-                            Major = 1
-                        });
                 });
 
             modelBuilder.Entity("AllergieMedicament", b =>

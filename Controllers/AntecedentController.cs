@@ -8,7 +8,6 @@ namespace ASPBookProject.Controllers
 {
     public class AntecedentController : Controller
     {
-        // GET: AntecedentController
         private readonly ApplicationDbContext _context;
         public AntecedentController(ApplicationDbContext context)
         {

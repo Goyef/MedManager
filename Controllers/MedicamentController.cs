@@ -15,7 +15,6 @@ namespace ASPBookProject.Controllers
         {
             _context = context;
         }
-        // GET: MedicamentController
         [Authorize]
         public IActionResult Index(string searchString)
         {
@@ -27,7 +26,7 @@ namespace ASPBookProject.Controllers
             }
             return View(medicaments);
         }
-
+        [Authorize]
         public async Task<IActionResult> ShowDetails(int id)
         {
             var medicament = await _context.Medicaments
@@ -48,7 +47,7 @@ namespace ASPBookProject.Controllers
 
             return View(viewModel);
         }
-
+        [Authorize]
         public async Task<IActionResult> Add()
         {
             var viewModel = new MedicamentEditViewModel
@@ -104,6 +103,7 @@ namespace ASPBookProject.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             var medicament = await _context.Medicaments
@@ -155,11 +155,9 @@ namespace ASPBookProject.Controllers
                         return NotFound();
                     }
 
-                    // Mise à jour des propriétés du médicament
                     medicament.Libelle_med = viewModel.Medicament.Libelle_med;
                     medicament.Contr_indication = viewModel.Medicament.Contr_indication;
 
-                    // Mise à jour des allergies
                     medicament.Allergies.Clear();
                     if (viewModel.SelectedAllergieIds != null)
                     {
@@ -172,7 +170,6 @@ namespace ASPBookProject.Controllers
                         }
                     }
 
-                    // Mise à jour des antécédents
                     medicament.Antecedents.Clear();
                     if (viewModel.SelectedAntecedentIds != null)
                     {
@@ -203,7 +200,6 @@ namespace ASPBookProject.Controllers
                 }
             }
 
-            // Si nous arrivons ici, quelque chose a échoué, réafficher le formulaire
             ThrowException();
             viewModel.Antecedents = await _context.Antecedents.ToListAsync();
             viewModel.Allergies = await _context.Allergies.ToListAsync();

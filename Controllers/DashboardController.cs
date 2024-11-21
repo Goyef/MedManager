@@ -19,7 +19,6 @@ namespace ASPBookProject.Controllers
             _context = context;
             _userManager = userManager;
         }
-        // GET: DashboardController
         [Authorize]
         public async  Task<IActionResult> Index()
         {

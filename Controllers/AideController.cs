@@ -2,6 +2,7 @@ using System.Net;
 using System.Net.Mail;
 using ASPBookProject.Services.Interface;
 using ASPBookProject.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPBookProject.Controllers
@@ -10,18 +11,20 @@ namespace ASPBookProject.Controllers
     {
 
       
-        // GET: AideController
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View();
         }
 
+        [Authorize]
         public IActionResult Faq()
         {
             return View();
         }
 
         [HttpGet]
+        [Authorize]
         public  IActionResult Contact()
         {
             return View();

@@ -15,7 +15,6 @@ namespace ASPBookProject.Controllers
         {
             _context = context;
         }
-        // GET: AllergieController
         [Authorize]
         public async Task<IActionResult> Index()
         {

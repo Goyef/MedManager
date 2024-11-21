@@ -16,13 +16,12 @@ public class AccountController : Controller
 
 
 
-    private readonly SignInManager<Medecin> _signInManager; // permet de gerer la connexion et la deconnexion des utilisateurs, nous est fourni par ASP.NET Core Identity
+    private readonly SignInManager<Medecin> _signInManager; 
 
 
     public AccountController(SignInManager<Medecin> signInManager, UserManager<Medecin> userManager, IPasswordHasher<Medecin> passwordHash)
     {
-        _signInManager = signInManager; // Signin manager est injecté dans le constructeur,
-        // c'est une classe generique qui prend en parametre ApplicationUser
+        _signInManager = signInManager; 
         _userManager = userManager;
         passwordHasher = passwordHash;
 
@@ -30,7 +29,7 @@ public class AccountController : Controller
 
     public IActionResult Login()
     {
-        return View(); // Affiche la vue Login
+        return View();
     }
 
     [HttpPost]
@@ -50,7 +49,7 @@ public class AccountController : Controller
 
         return View(model);
     }
-
+    [Authorize]
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();
@@ -152,7 +151,6 @@ public class AccountController : Controller
         return View(user);
     }
 
-    // Edit: MedecinController 
     [Authorize]
     [HttpGet]
     public async Task<IActionResult> Edit()
@@ -170,16 +168,5 @@ public class AccountController : Controller
         throw new Exception("Une exception s'est produite, nous testons la page d'exception pour les développeurs.");
     }
 
-    /*
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Medecin user)
-        {
-            IdentityResult x = await _userManager.UpdateAsync(user);
-            if (x.Succeeded)
-            {
-                return RedirectToAction("Index", "Account");
-            }
-            return View(user);
-        }*/
+   
 }

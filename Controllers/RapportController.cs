@@ -20,14 +20,13 @@ namespace ASPBookProject.Controllers
             _context = context;
             _userManager = userManager;
         }
-        // GET: RapportController
         [Authorize]
         public async Task<ActionResult> Index()
         {
             return View();
 
         }
-                [Authorize]
+        [Authorize]
         public async Task<ActionResult> MedRanking()
         {
             List<Medicament> medicaments = new List<Medicament>();

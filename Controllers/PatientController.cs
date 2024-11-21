@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
-// Modèle ViewModel
 public class PatientEditViewModel
 {
     [Required]
@@ -26,10 +25,8 @@ namespace ASPBookProject.Controllers
     [Authorize]
     public class PatientController : Controller
     {
-        // 
         private readonly ApplicationDbContext _context;
 
-        // Controleur, injection de dependance
         public PatientController(ApplicationDbContext context)
         {
             _context = context;
@@ -48,6 +45,7 @@ namespace ASPBookProject.Controllers
             return View(patients);
         }
 
+        [Authorize]
         public async Task<IActionResult> ShowDetails(int id)
         {
             var patient = await _context.Patients
@@ -68,7 +66,7 @@ namespace ASPBookProject.Controllers
 
             return View(viewModel);
         }
-
+        [Authorize]
         public async Task<IActionResult> Add()
         {
 
@@ -128,7 +126,7 @@ namespace ASPBookProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // Edit: PatientController 
+        [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
             var patient = await _context.Patients
@@ -180,13 +178,11 @@ namespace ASPBookProject.Controllers
                         return NotFound();
                     }
 
-                    // Mise à jour des propriétés du patient
                     patient.Nom_p = viewModel.Patient.Nom_p;
                     patient.Prenom_p = viewModel.Patient.Prenom_p;
                     patient.Sexe_p = viewModel.Patient.Sexe_p;
                     patient.Num_secu = viewModel.Patient.Num_secu;
 
-                    // Mise à jour des allergies
                     patient.Allergies.Clear();
                     if (viewModel.SelectedAllergieIds != null)
                     {
@@ -199,7 +195,6 @@ namespace ASPBookProject.Controllers
                         }
                     }
 
-                    // Mise à jour des antécédents
                     patient.Antecedents.Clear();
                     if (viewModel.SelectedAntecedentIds != null)
                     {
@@ -230,7 +225,6 @@ namespace ASPBookProject.Controllers
                 }
             }
 
-            // Si nous arrivons ici, quelque chose a échoué, réafficher le formulaire
             ThrowException();
             viewModel.Antecedents = await _context.Antecedents.ToListAsync();
             viewModel.Allergies = await _context.Allergies.ToListAsync();

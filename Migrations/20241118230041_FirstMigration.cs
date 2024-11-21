@@ -4,8 +4,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace ASPBookProject.Migrations
 {
     /// <inheritdoc />
@@ -105,34 +103,6 @@ namespace ASPBookProject.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Instructors",
-                columns: table => new
-                {
-                    InstructorId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    LastName = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    IsTenured = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    Rank = table.Column<int>(type: "int", nullable: false),
-                    HiringDate = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    EmailAddress = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    PersonalUrl = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Password = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Instructors", x => x.InstructorId);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "Medicaments",
                 columns: table => new
                 {
@@ -168,27 +138,6 @@ namespace ASPBookProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Patients", x => x.PatientId);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Roster",
-                columns: table => new
-                {
-                    StudentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    FirstName = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    LastName = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    IsVeteran = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    AdmissionDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    GPA = table.Column<double>(type: "double", nullable: false),
-                    Major = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Roster", x => x.StudentId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -483,26 +432,6 @@ namespace ASPBookProject.Migrations
                 columns: new[] { "AllergieId", "Libelle_al" },
                 values: new object[] { 1, "Coriandre" });
 
-            migrationBuilder.InsertData(
-                table: "Instructors",
-                columns: new[] { "InstructorId", "EmailAddress", "FirstName", "HiringDate", "IsTenured", "LastName", "Password", "PersonalUrl", "PhoneNumber", "Rank" },
-                values: new object[,]
-                {
-                    { 1, null, "Jane", new DateTime(2010, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "Doe", null, null, null, 3 },
-                    { 2, null, "John", new DateTime(2015, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Smith", null, null, null, 1 },
-                    { 3, null, "Jane", new DateTime(2012, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "Smith", null, null, null, 4 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Patients",
-                columns: new[] { "PatientId", "Nom_p", "Num_secu", "Prenom_p", "Sexe_p" },
-                values: new object[] { 1, "John", "123123123123123", "Doe", "m" });
-
-            migrationBuilder.InsertData(
-                table: "Roster",
-                columns: new[] { "StudentId", "AdmissionDate", "FirstName", "GPA", "IsVeteran", "LastName", "Major" },
-                values: new object[] { 1, new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "John", 3.5, false, "Doe", 1 });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AllergieMedicament_MedicamentsMedicamentId",
                 table: "AllergieMedicament",
@@ -607,13 +536,7 @@ namespace ASPBookProject.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Instructors");
-
-            migrationBuilder.DropTable(
                 name: "MedicamentOrdonnance");
-
-            migrationBuilder.DropTable(
-                name: "Roster");
 
             migrationBuilder.DropTable(
                 name: "Allergies");

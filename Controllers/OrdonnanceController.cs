@@ -22,7 +22,6 @@ namespace ASPBookProject.Controllers
             _context = context;
             _userManager = userManager;
         }
-        // GET: OrdonnanceController
         [Authorize]
         public async Task<IActionResult> Index()
         {
@@ -38,7 +37,7 @@ namespace ASPBookProject.Controllers
 
             return View(ordonnances);
         }
-
+        [Authorize]
         public async Task <IActionResult> ShowDetails(int id)
         {
             var ordonnance = await _context.Ordonnances
@@ -63,7 +62,7 @@ namespace ASPBookProject.Controllers
             return View(viewModel);
         }
   
-
+        [Authorize]
         public async Task<IActionResult> Add()
         {
             string? MedecinId = _userManager.GetUserId(User);
@@ -156,7 +155,7 @@ namespace ASPBookProject.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize]
          public async Task<IActionResult> Edit(int id)
         {
              var ordonnance = await _context.Ordonnances
@@ -295,7 +294,7 @@ namespace ASPBookProject.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public IActionResult ThrowException()
         {
             throw new Exception("Une exception s'est produite, nous testons la page d'exception pour les développeurs.");

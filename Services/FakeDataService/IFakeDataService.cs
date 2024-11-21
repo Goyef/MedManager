@@ -6,5 +6,5 @@ namespace ASPBookProject.Services.FakeDataService;
 
 public interface IFakeDataService
 {
-    List<Instructor> InstructorsList { get; }
+    // List<Instructor> InstructorsList { get; }
 }
