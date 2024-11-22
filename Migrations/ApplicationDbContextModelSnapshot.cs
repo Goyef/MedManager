@@ -44,6 +44,31 @@ namespace ASPBookProject.Migrations
                         {
                             AllergieId = 1,
                             Libelle_al = "Coriandre"
+                        },
+                        new
+                        {
+                            AllergieId = 2,
+                            Libelle_al = "Pollen"
+                        },
+                        new
+                        {
+                            AllergieId = 3,
+                            Libelle_al = "Acarien"
+                        },
+                        new
+                        {
+                            AllergieId = 4,
+                            Libelle_al = "Arachide"
+                        },
+                        new
+                        {
+                            AllergieId = 5,
+                            Libelle_al = "Oeuf"
+                        },
+                        new
+                        {
+                            AllergieId = 6,
+                            Libelle_al = "Lait"
                         });
                 });
 
@@ -63,6 +88,33 @@ namespace ASPBookProject.Migrations
                     b.HasKey("AntecedentId");
 
                     b.ToTable("Antecedents");
+
+                    b.HasData(
+                        new
+                        {
+                            AntecedentId = 1,
+                            Libelle_a = "Diabète"
+                        },
+                        new
+                        {
+                            AntecedentId = 2,
+                            Libelle_a = "Acné"
+                        },
+                        new
+                        {
+                            AntecedentId = 3,
+                            Libelle_a = "Anxiété"
+                        },
+                        new
+                        {
+                            AntecedentId = 4,
+                            Libelle_a = "Dépression"
+                        },
+                        new
+                        {
+                            AntecedentId = 5,
+                            Libelle_a = "Arthrite"
+                        });
                 });
 
             modelBuilder.Entity("ASPBookProject.Models.Medecin", b =>
@@ -160,6 +212,78 @@ namespace ASPBookProject.Migrations
                     b.HasKey("MedicamentId");
 
                     b.ToTable("Medicaments");
+
+                    b.HasData(
+                        new
+                        {
+                            MedicamentId = 1,
+                            Contr_indication = " Utiliser avec prudence chez les patients ayant des troubles psychiatriques.",
+                            Libelle_med = "Gabapentin",
+                            compteur = 0
+                        },
+                        new
+                        {
+                            MedicamentId = 2,
+                            Contr_indication = "Ne pas utiliser avant de dormir",
+                            Libelle_med = "Losartan",
+                            compteur = 0
+                        },
+                        new
+                        {
+                            MedicamentId = 3,
+                            Contr_indication = "A eviter si vous êtes conducteur",
+                            Libelle_med = "Omeprazole",
+                            compteur = 0
+                        },
+                        new
+                        {
+                            MedicamentId = 4,
+                            Contr_indication = "...",
+                            Libelle_med = "Albuterol",
+                            compteur = 0
+                        },
+                        new
+                        {
+                            MedicamentId = 5,
+                            Contr_indication = "...",
+                            Libelle_med = "Metoprolol",
+                            compteur = 0
+                        },
+                        new
+                        {
+                            MedicamentId = 6,
+                            Contr_indication = "Ne pas utiliser en hiver",
+                            Libelle_med = "Metformin",
+                            compteur = 0
+                        },
+                        new
+                        {
+                            MedicamentId = 7,
+                            Contr_indication = "...",
+                            Libelle_med = "Lisinopril",
+                            compteur = 0
+                        },
+                        new
+                        {
+                            MedicamentId = 8,
+                            Contr_indication = "Ne pas consommer si déjà pris la même semaine",
+                            Libelle_med = "Levothyroxine",
+                            compteur = 0
+                        },
+                        new
+                        {
+                            MedicamentId = 9,
+                            Contr_indication = "...",
+                            Libelle_med = "Atorvastatin ",
+                            compteur = 0
+                        },
+                        new
+                        {
+                            MedicamentId = 10,
+                            Contr_indication = "Peut aggraver une toux sans fièvre",
+                            Libelle_med = "Amlodipine",
+                            compteur = 0
+                        });
                 });
 
             modelBuilder.Entity("ASPBookProject.Models.Ordonnance", b =>

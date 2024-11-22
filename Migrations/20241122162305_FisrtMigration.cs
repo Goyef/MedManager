@@ -4,10 +4,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace ASPBookProject.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstMigration : Migration
+    public partial class FisrtMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -130,6 +132,7 @@ namespace ASPBookProject.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Prenom_p = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Age_p = table.Column<int>(type: "int", nullable: false),
                     Sexe_p = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Num_secu = table.Column<string>(type: "varchar(15)", maxLength: 15, nullable: false)
@@ -430,7 +433,44 @@ namespace ASPBookProject.Migrations
             migrationBuilder.InsertData(
                 table: "Allergies",
                 columns: new[] { "AllergieId", "Libelle_al" },
-                values: new object[] { 1, "Coriandre" });
+                values: new object[,]
+                {
+                    { 1, "Coriandre" },
+                    { 2, "Pollen" },
+                    { 3, "Acarien" },
+                    { 4, "Arachide" },
+                    { 5, "Oeuf" },
+                    { 6, "Lait" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Antecedents",
+                columns: new[] { "AntecedentId", "Libelle_a" },
+                values: new object[,]
+                {
+                    { 1, "Diabète" },
+                    { 2, "Acné" },
+                    { 3, "Anxiété" },
+                    { 4, "Dépression" },
+                    { 5, "Arthrite" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Medicaments",
+                columns: new[] { "MedicamentId", "Contr_indication", "Libelle_med", "compteur" },
+                values: new object[,]
+                {
+                    { 1, " Utiliser avec prudence chez les patients ayant des troubles psychiatriques.", "Gabapentin", 0 },
+                    { 2, "Ne pas utiliser avant de dormir", "Losartan", 0 },
+                    { 3, "A eviter si vous êtes conducteur", "Omeprazole", 0 },
+                    { 4, "...", "Albuterol", 0 },
+                    { 5, "...", "Metoprolol", 0 },
+                    { 6, "Ne pas utiliser en hiver", "Metformin", 0 },
+                    { 7, "...", "Lisinopril", 0 },
+                    { 8, "Ne pas consommer si déjà pris la même semaine", "Levothyroxine", 0 },
+                    { 9, "...", "Atorvastatin ", 0 },
+                    { 10, "Peut aggraver une toux sans fièvre", "Amlodipine", 0 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AllergieMedicament_MedicamentsMedicamentId",
