@@ -14,6 +14,9 @@ public class Patient
 
     [Required(ErrorMessage ="Le prénom est requis")]
     public required string Prenom_p { get; set; }
+
+    [Required(ErrorMessage ="L'âge est requis")]
+    public required int Age_p { get; set; }
      [Required(ErrorMessage ="Le sexe est requis")]
     public required string Sexe_p { get; set; }
 

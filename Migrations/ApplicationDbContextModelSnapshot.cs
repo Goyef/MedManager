@@ -207,6 +207,9 @@ namespace ASPBookProject.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("PatientId"));
 
+                    b.Property<int>("Age_p")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nom_p")
                         .IsRequired()
                         .HasColumnType("longtext");

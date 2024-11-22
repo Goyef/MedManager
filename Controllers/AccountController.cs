@@ -49,7 +49,6 @@ public class AccountController : Controller
 
         return View(model);
     }
-    [Authorize]
     public async Task<IActionResult> Logout()
     {
         await _signInManager.SignOutAsync();

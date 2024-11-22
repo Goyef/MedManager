@@ -26,7 +26,7 @@ namespace ASPBookProject.Controllers
             Medecin med = _userManager.FindByIdAsync(medecinId).Result;
             if(med == null)
             {
-                return RedirectToAction("Logout", "Dashboard");
+                return RedirectToAction("Logout", "Account");
             }
             List<Ordonnance> ordonnances = new List<Ordonnance>();
             ordonnances = await _context.Ordonnances

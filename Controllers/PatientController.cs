@@ -96,6 +96,7 @@ namespace ASPBookProject.Controllers
                 Prenom_p = viewModel.Patient.Prenom_p,
                 Sexe_p = viewModel.Patient.Sexe_p,
                 Num_secu = viewModel.Patient.Num_secu,
+                Age_p = viewModel.Patient.Age_p,
                 Allergies = new List<Allergie>(),
                 Antecedents = new List<Antecedent>()
             };
@@ -182,6 +183,7 @@ namespace ASPBookProject.Controllers
                     patient.Prenom_p = viewModel.Patient.Prenom_p;
                     patient.Sexe_p = viewModel.Patient.Sexe_p;
                     patient.Num_secu = viewModel.Patient.Num_secu;
+                    patient.Age_p = viewModel.Patient.Age_p;
 
                     patient.Allergies.Clear();
                     if (viewModel.SelectedAllergieIds != null)
