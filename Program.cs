@@ -11,9 +11,19 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using ASPBookProject.Logging;
+
+
+
 using Rotativa.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+string logFilePath = "app_log.txt";
+StreamWriter logFileWriter = new StreamWriter(logFilePath, append: true);
+builder.Logging.ClearProviders();
+builder.Logging.AddProvider(new CustomFileLoggerProvider(logFileWriter));
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddControllersWithViews();
